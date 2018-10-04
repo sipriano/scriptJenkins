@@ -8,8 +8,13 @@ pipeline {
         }
 		stage('Stage 2') {
 			steps {
-				echo 'stage 2'
+                           echo 'stage 2'
 			}
 		}
-    }
+                stage('Stage 3') {
+                        steps {
+                           echo'build on commit'   
+                        }
+                }
+ }
 }
