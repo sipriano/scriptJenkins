@@ -13,8 +13,17 @@ pipeline {
 		}
                 stage('Stage 3') {
                         steps {
-                           echo'build on commit'   
+                          echo'build on commit'   
                         }
                 }
+             stage('Stage 4') {
+             node {
+                  try {
+                       sh 'exit 1'
+                  } finally {
+                        println currentBuild.result
+                        step([$class: 'Mailer', notifyEveryUnstableBuild: true, recipients: 'rodrigo.sipriano@yaman.com.br', sendToIndividual: true])
+                  }
+                  }
  }
 }
