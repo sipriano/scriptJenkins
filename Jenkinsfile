@@ -13,7 +13,7 @@ pipeline {
 		}
                 stage('Stage 3') {
                         steps {
-                          echo'build on commit'   
+                         echo'build on commit'   
                         }
                 }
              stage('Stage 4') {
@@ -26,4 +26,5 @@ pipeline {
                   }
                   }
  }
+}
 }
