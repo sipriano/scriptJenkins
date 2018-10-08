@@ -17,17 +17,18 @@ pipeline {
 			}
 		}
 		stage('Stage 4') {
-				node {
-    				try {
-        				sh 'exit 1'
-        				currentBuild.result = 'FAILURE'
-    				} catch (any) {
-        				currentBuild.result = 'FAILURE'
-        				throw any //rethrow exception to prevent the build from proceeding
-    				} finally {
-        				step([$class: 'Mailer', notifyEveryUnstableBuild: true, recipients: 'rodrigo.sipriano@yaman.com.br', sendToIndividuals: true])
-    				}
+				steps {
+						node {
+    					try {
+        					sh 'exit 1'
+        					currentBuild.result = 'FAILURE'
+    					} catch (any) {
+        					currentBuild.result = 'FAILURE'
+        					throw any //rethrow exception to prevent the build from proceeding
+    					} finally {
+        					step([$class: 'Mailer', notifyEveryUnstableBuild: true, recipients: 'rodrigo.sipriano@yaman.com.br', sendToIndividuals: true])
+    					}
+						}
 				}
-			}
 		}
 }
