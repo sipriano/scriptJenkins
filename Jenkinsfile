@@ -17,8 +17,13 @@ pipeline {
 			}
 		}
 		stage('Stage 4') {
-			steps {
 				echo 'Sending email...'
+			
+			catch(err) {
+				echo 'error'
+				throw err
+			}
+			finally{
 				step([$class: 'Mailer', notifyEveryUnstableBuild: false, recipients: 'rodrigo.sipriano@yaman.com.br', sendToIndividuals: true])
 			}
 		}
