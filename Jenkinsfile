@@ -22,8 +22,7 @@ pipeline {
 				jobStarted()
 			}
 		}
-	}
-	def jobStarted(){
+		def jobStarted(){
 					emailext (
 						subject: "STARTED: Job test build 1'",
 						body: """<p>STARTED: Job test:</p>
@@ -31,4 +30,5 @@ pipeline {
 						recipientProviders: "=|"
 					)
 				}
+	}
 }
