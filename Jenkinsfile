@@ -17,7 +17,7 @@ pipeline {
 			}
 		}
 		stage('Stage 4') {
-				steps {echo 'Sending email...'
+				steps {echo 'Sending email...'}
 				node {
     				try {
         				sh 'exit 1'
@@ -30,6 +30,5 @@ pipeline {
     				}
 				}
 			}
-		}
 		}
 }
