@@ -16,15 +16,17 @@ pipeline {
                          echo'build on commit'   
                         }
                 }
-             stage('Stage 4') {
-             node {
-                  try {
-                       sh 'exit 1'
-                  } finally {
-                        println currentBuild.result
-                        step([$class: 'Mailer', notifyEveryUnstableBuild: true, recipients: 'rodrigo.sipriano@yaman.com.br', sendToIndividual: true])
-                  }
-                  }
+           stage('Stage 4') {
+                 jobStarted()
  }
+      
+             def jobStarted(){
+                  emailext (
+                  subject: "STARTED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
+                  body: """<p>STARTED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
+                  <p>Check console output at "<a href="${env.BUILD_URL}">${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>"</p>""",
+                  recipientProviders: [[$class: 'DevelopersRecipientProvider']]
+                  )
+             }
 }
 }
