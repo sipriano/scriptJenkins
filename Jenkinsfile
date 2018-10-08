@@ -20,7 +20,7 @@ pipeline {
 				node {
     				try {
         				sh 'exit 1'
-        				currentBuild.result = 'SUCCESS'
+        				currentBuild.result = 'FAILURE'
     				} catch (any) {
         				currentBuild.result = 'FAILURE'
         				throw any //rethrow exception to prevent the build from proceeding
