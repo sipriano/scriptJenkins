@@ -17,16 +17,10 @@ pipeline {
 			}
 		}
 		stage('Stage 4') {
-				steps{
-					post {
-        				success {
-            				mail to:"rodrigo.sipriano@yaman.com.br", subject:"SUCCESS: ${currentBuild.fullDisplayName}", body: "Yay, we passed."
-        				}
-        				failure {
-            				mail to:"rodrigo.sipriano@yaman.com.br", subject:"FAILURE: ${currentBuild.fullDisplayName}", body: "Boo, we failed."
-        				}
-					}
-				}
+				env.ForEmailPlugin = env.WORKSPACE
+				body: '''teste''',
+				subject: currentBuild.currentResult + " : " + env.JOB_NAME,
+				to: 'rodrigo.sipriano@yaman.com.br'
 		}
-}
+	}
 }
