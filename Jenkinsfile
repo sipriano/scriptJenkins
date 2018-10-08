@@ -18,13 +18,17 @@ pipeline {
 		}
 		stage('Stage 4') {
 				echo 'Sending email...'
-			
-			catch(err) {
-				echo 'error'
-				throw err
-			}
-			finally{
-				step([$class: 'Mailer', notifyEveryUnstableBuild: false, recipients: 'rodrigo.sipriano@yaman.com.br', sendToIndividuals: true])
+				node {
+    				try {
+        				sh 'exit 1'
+        				currentBuild.result = 'SUCCESS'
+    				} catch (any) {
+        				currentBuild.result = 'FAILURE'
+        				throw any //rethrow exception to prevent the build from proceeding
+    				} finally {
+        				step([$class: 'Mailer', notifyEveryUnstableBuild: true, recipients: 'rodrigo.sipriano@yaman.com.br', sendToIndividuals: true])
+    				}
+				}
 			}
 		}
 		
