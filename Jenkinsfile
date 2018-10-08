@@ -16,11 +16,16 @@ pipeline {
 				echo'build on commit'   
 			}
 		}
-		stage('Stage 4') {
-				env.ForEmailPlugin = env.WORKSPACE
-				body: "teste",
-				subject: currentBuild.currentResult + " : " + env.JOB_NAME,
-				to: 'rodrigo.sipriano@yaman.com.br'
+		stage('Send email') {
+			def mailRecipients = "rodrigo.sipriano@yaman.com.br"
+			def jobName = currentBuild.fullDisplayName
+			
+			emailext body: '''${SCRIPT, template ="groovy-html.template"}''',
+				mimeType: 'text/html',
+				subject: "[Jenkins] ${jobName}",
+				to: "${mailRecipients}",
+				replyTo: "${mailRecipients}",
+				recipientProviders: [[$class: 'CulpritsRecipientProvider']]
 		}
 	}
 }
