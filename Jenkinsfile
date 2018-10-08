@@ -19,7 +19,7 @@ pipeline {
 		stage('Stage 4') {
 			steps {
 				echo 'Sending email...'
-				[$class: 'Mailer', notifyEveryUnstableBuild: true, recipients: 'rodrigo.sipriano@yaman.com.br', sendToIndividuals: true]
+				step([$class: 'Mailer', notifyEveryUnstableBuild: true, recipients: 'rodrigo.sipriano@yaman.com.br', sendToIndividuals: true])
 			}
 		}
 		
