@@ -18,7 +18,7 @@ pipeline {
 		}
 		stage('Stage 4') {
 				env.ForEmailPlugin = env.WORKSPACE
-				body: '''teste''',
+				body: 'teste',
 				subject: currentBuild.currentResult + " : " + env.JOB_NAME,
 				to: 'rodrigo.sipriano@yaman.com.br'
 		}
