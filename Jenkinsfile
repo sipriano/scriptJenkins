@@ -17,14 +17,15 @@ pipeline {
 			}
 		}
 		stage('Stage 4') {
-				post {
-        success {
-            mail to:"someone@hotmail.com", subject:"SUCCESS: ${currentBuild.fullDisplayName}", body: "Yay, we passed."
-        }
-        failure {
-            mail to:"someone@hotmail.com", subject:"FAILURE: ${currentBuild.fullDisplayName}", body: "Boo, we failed."
-        }
+				steps{
+					post {
+        				success {
+            				mail to:"rodrigo.sipriano@yaman.com.br", subject:"SUCCESS: ${currentBuild.fullDisplayName}", body: "Yay, we passed."
+        				}
+        				failure {
+            				mail to:"rodrigo.sipriano@yaman.com.br", subject:"FAILURE: ${currentBuild.fullDisplayName}", body: "Boo, we failed."
+        				}
+					}
+				}
 		}
-		}
-	}
 }
