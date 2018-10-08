@@ -17,19 +17,14 @@ pipeline {
 			}
 		}
 		stage('Stage 4') {
-				steps {
-						node {
-    					try {
-        					sh 'exit 1'
-        					currentBuild.result = 'FAILURE'
-    					} catch (any) {
-        					currentBuild.result = 'FAILURE'
-        					throw any //rethrow exception to prevent the build from proceeding
-    					} finally {
-        					step([$class: 'Mailer', notifyEveryUnstableBuild: true, recipients: 'rodrigo.sipriano@yaman.com.br', sendToIndividuals: true])
-    					}
-						}
-				}
+				post {
+        success {
+            mail to:"someone@hotmail.com", subject:"SUCCESS: ${currentBuild.fullDisplayName}", body: "Yay, we passed."
+        }
+        failure {
+            mail to:"someone@hotmail.com", subject:"FAILURE: ${currentBuild.fullDisplayName}", body: "Boo, we failed."
+        }
 		}
-}
+		}
+	}
 }
