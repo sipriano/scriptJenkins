@@ -19,15 +19,7 @@ pipeline {
 		stage('Stage 4') {
 			steps {
 				echo 'Sending email...'
-				def jobStarted(){
-					emailext (
-						subject: "STARTED: Job test build 1'",
-						body: """<p>STARTED: Job test:</p>
-						<p>Check console output at it doesn't matter for now</a>"</p>""",
-						recipientProviders: "=|"
-					)
-				}
-				jobStarted()
+				[$class: 'Mailer', notifyEveryUnstableBuild: true, recipients: 'rodrigo.sipriano@yaman.com.br', sendToIndividuals: true]
 			}
 		}
 		
